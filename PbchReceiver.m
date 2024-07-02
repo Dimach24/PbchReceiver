@@ -26,6 +26,14 @@ classdef PbchReceiver
                 ];
             pbch=QpskDemodulation(pbch);
         end
+        function issb_lsb=PbchDmRsProcessing(dmrs_linearized,NCellId)
+            for i=0:7
+                dmrs_bank(i+1)=generatePbchDmRs(i,NCellId);
+            end
+            corr_data=xcorr(dmrs_bank,dmrs_linearized);
+            corr_max=max(corr_data);
+            [~,issb_lsb]=max(corr_data,[]);
+        end
     end
 
 end
