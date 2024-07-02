@@ -1,0 +1,3 @@
+[submodule "5G-CRC"]
+	path = 5G-CRC
+	url = git@github.com:Dimach24/5G-CRC.git
