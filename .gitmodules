@@ -1,3 +1,6 @@
 [submodule "5G-CRC"]
 	path = 5G-CRC
 	url = git@github.com:Dimach24/5G-CRC.git
+[submodule "PBCH_DMRS_Generator-5G"]
+	path = PBCH_DMRS_Generator-5G
+	url = git@github.com:Dimach24/PBCH_DMRS_Generator-5G.git
