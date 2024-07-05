@@ -9,11 +9,11 @@ classdef PbchReceiver
                 Lmax_ (1,1) % maximum number of candidate SS/PBCH blocks in half frame [4.1, TS 38.213]
             end
             
-            bit_sequence = reverseRateMatching(bit_sequence);
-            bit_sequence = channelDecoding(bit_sequence);
+            bit_sequence = PbchReceiver.reverseRateMatching(bit_sequence);
+            bit_sequence = PbchReceiver.channelDecoding(bit_sequence);
             [bit_sequence, is_data_valid] = ExtractDataCheckParity(bit_sequence, "crc24c");
             bit_sequence = descrambling(bit_sequence,NcellID,Lmax_);
-            MIB = payloadReceiving(bit_sequence, Lmax_);
+            MIB = PbchReceiver.payloadReceiving(bit_sequence, Lmax_);
 
         end
 
@@ -23,7 +23,9 @@ classdef PbchReceiver
         end
 
         function out_seq = channelDecoding(in_seq)
-            in_seq = channelDecoding_polarDecoding(in_seq);
+            QN_I_file = matfile("QN_I.mat");
+            QN_I = QN_I_file.QN_I;
+            in_seq = channelDecoding_polarDecoding(in_seq,QN_I);
             out_seq = channelDecoding_deinterleaving(in_seq);
         end
 
