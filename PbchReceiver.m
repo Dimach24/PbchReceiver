@@ -5,7 +5,7 @@ classdef PbchReceiver
         %receivePbch Procedure of PBCH deconstruction and MIB extraction [7.1, TS 38.212]
             arguments
                 bit_sequence (1,:) % demapped and descrambled PBCH bit sequence
-                NcellID (1,1)
+                NcellID (1,1) % cell identification number
                 Lmax_ (1,1) % maximum number of candidate SS/PBCH blocks in half frame [4.1, TS 38.213]
             end
             
@@ -25,7 +25,7 @@ classdef PbchReceiver
         function out_seq = channelDecoding(in_seq)
             QN_I_file = matfile("QN_I.mat");
             QN_I = QN_I_file.QN_I;
-            in_seq = channelDecoding_polarDecoding(in_seq,QN_I);
+            in_seq = channelDecoding_polarDecoding(in_seq,QN_I); % does not work properly in the moment
             out_seq = channelDecoding_deinterleaving(in_seq);
         end
 
