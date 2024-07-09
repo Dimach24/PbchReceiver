@@ -11,8 +11,8 @@ classdef PbchReceiver
             
             bit_sequence = PbchReceiver.reverseRateMatching(bit_sequence);
             bit_sequence = PbchReceiver.channelDecoding(bit_sequence);
-            [bit_sequence, is_data_valid] = ExtractDataCheckParity(bit_sequence, "crc24c");
-            bit_sequence = descrambling(bit_sequence,NcellID,Lmax_);
+            [bit_sequence, is_data_valid] = PbchReceiver.crcDetachment(bit_sequence);
+            bit_sequence = PbchReceiver.descrambling(bit_sequence,NcellID,Lmax_);
             MIB = PbchReceiver.payloadReceiving(bit_sequence, Lmax_);
 
         end
@@ -26,6 +26,14 @@ classdef PbchReceiver
             QN_I = matfile("QN_I.mat").QN_I;
             in_seq = channelDecoding_polarDecoding(in_seq,QN_I); % does not work properly in the moment
             out_seq = channelDecoding_deinterleaving(in_seq);
+        end
+
+        function [out_seq, isValid] = crcDetachment(in_seq)
+            [out_seq, isValid] = ExtractDataCheckParity(in_seq, "crc24c");
+        end
+        
+        function out_seq = descrambling(in_seq,NCellID,Lmax_)
+            out_seq = descrambling(in_seq,NCellID,Lmax_);
         end
 
         function data = payloadReceiving(in_seq,Lmax_)
