@@ -23,8 +23,7 @@ classdef PbchReceiver
         end
 
         function out_seq = channelDecoding(in_seq)
-            QN_I_file = matfile("QN_I.mat");
-            QN_I = QN_I_file.QN_I;
+            QN_I = matfile("QN_I.mat").QN_I;
             in_seq = channelDecoding_polarDecoding(in_seq,QN_I); % does not work properly in the moment
             out_seq = channelDecoding_deinterleaving(in_seq);
         end
