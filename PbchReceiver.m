@@ -36,8 +36,8 @@ classdef PbchReceiver
         end
 
         function data = payloadReceiving(in_seq,Lmax_)
-            data = payloadReceiving_deinterleaving(in_seq);
-            %data = MibParser.ParsePbchPayload(in_seq,Lmax_);
+            in_seq = payloadReceiving_deinterleaving(in_seq);
+            data = MibParser.ParsePbchPayload(in_seq,Lmax_);
         end
     end
 
