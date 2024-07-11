@@ -23,8 +23,7 @@ classdef PbchReceiver
         end
 
         function out_seq = channelDecoding(in_seq)
-            QN_I = matfile("QN_I.mat").QN_I;
-            in_seq = channelDecoding_polarDecoding(in_seq,QN_I); % does not work properly in the moment
+            in_seq = channelDecoding_polarDecoding(in_seq);
             out_seq = channelDecoding_deinterleaving(in_seq);
         end
 
@@ -37,8 +36,8 @@ classdef PbchReceiver
         end
 
         function data = payloadReceiving(in_seq,Lmax_)
-            in_seq = payloadReceiving_deinterleaving(in_seq);
-            data = MibParser.ParsePbchPayload(in_seq,Lmax_);
+            data = payloadReceiving_deinterleaving(in_seq);
+            %data = MibParser.ParsePbchPayload(in_seq,Lmax_);
         end
     end
 
