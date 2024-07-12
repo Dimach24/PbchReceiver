@@ -31,17 +31,17 @@ classdef MibParser
             data.SFN=data.mib.SfnMsb+data.SfnLsb;
             data.halfFrame=bits(29);
             if Lmax_==10
-                data.kSsbMsb=2^5*bits(30);
+                data.kSsbMsb=2^4*bits(30);
                 data.reserved=[bits(31)];
                 data.blockIndexMsb=2^3*bits(32);
             elseif Lmax_==20
-                data.kSsbMsb=2^5*bits(30);
+                data.kSsbMsb=2^4*bits(30);
                 data.blockIndexMsb=2^4*bits(31)+2^3*bits(32);
             elseif Lmax_==64
                 data.kSsbMsb=0;
                 data.blockIndexMsb=2^5*bits(30)+2^4*bits(31)+2^3*bits(32);
             else
-                data.kSsbMsb=2^5*bits(30);
+                data.kSsbMsb=2^4*bits(30);
                 data.reserved=bits(31:32);
                 data.blockIndexMsb=0;
             end
