@@ -1,5 +1,5 @@
-function out_seq = reverseRateMatching_bitSelection(in_seq)
-%reverseRateMatching_bitSelection Procedure of bit selection for reverse 
+function out_seq = rateRecovery_bitSelection(in_seq)
+%rateRecovery_bitSelection Procedure of bit selection for reverse 
 % rate matching of PBCH Receiver module [TS 38.212 5.4.1.2]
 arguments
     in_seq (1,:); % input sequence

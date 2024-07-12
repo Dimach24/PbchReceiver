@@ -9,7 +9,7 @@ classdef PbchReceiver
                 Lmax_ (1,1) % maximum number of candidate SS/PBCH blocks in half frame [4.1, TS 38.213]
             end
             
-            bit_sequence = PbchReceiver.reverseRateMatching(bit_sequence);
+            bit_sequence = PbchReceiver.rateRecovery(bit_sequence);
             bit_sequence = PbchReceiver.channelDecoding(bit_sequence);
             [bit_sequence, is_data_valid] = PbchReceiver.crcDetachment(bit_sequence);
             bit_sequence = PbchReceiver.descrambling(bit_sequence,NcellID,Lmax_);
@@ -17,9 +17,9 @@ classdef PbchReceiver
 
         end
 
-        function out_seq = reverseRateMatching(in_seq)
-            in_seq = reverseRateMatching_bitSelection(in_seq);
-            out_seq = reverseRateMatching_subBlockDeinterleaving(in_seq);
+        function out_seq = rateRecovery(in_seq)
+            in_seq = rateRecovery_bitSelection(in_seq);
+            out_seq = rateRecovery_subBlockDeinterleaving(in_seq);
         end
 
         function out_seq = channelDecoding(in_seq)

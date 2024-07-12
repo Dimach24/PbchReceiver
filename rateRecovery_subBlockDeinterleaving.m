@@ -1,5 +1,5 @@
-function [out_seq, J] = reverseRateMatching_subBlockDeinterleaving(in_seq)
-%reverseRateMatching_subBlockDeinterleaving Procedure of sub-block
+function [out_seq, J] = rateRecovery_subBlockDeinterleaving(in_seq)
+%rateRecovery_subBlockDeinterleaving Procedure of sub-block
 % deinterleaving for reverse rate matching of PBCH receiver 
 % [TS 38.212, 5.4.1.1]
 % J is the matrix of indexes after sub-block interleaving
