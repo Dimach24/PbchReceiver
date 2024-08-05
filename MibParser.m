@@ -1,14 +1,20 @@
 classdef MibParser
     methods(Static)
         function mib=ParseMib(bits)
+            % parses MIB data from a bitstream
             arguments
                 bits (1,23) {mustBeMember(bits,[0,1])}
             end
+            
+            % 'statis' vars
             persistent ScsType DmrsTypeAPositions;
+            % 'static' vars initialization
             if isempty(ScsType) || isempty(DmrsTypeAPositions)
                 DmrsTypeAPositions=["pos2","pos3"];
                 ScsType=["15or60","30or120"];
             end
+            
+            % exctracting info from bits
             mib.SfnMsb=sum(2.^(9:-1:4).*bits(1:6));
             mib.ScsType=ScsType(bits(7)+1);
             mib.kSsbLsb=sum(2.^(3:-1:0).*bits(8:11));
@@ -20,13 +26,24 @@ classdef MibParser
             mib.intraFreqReselection=bits(22)==0; %zero -- True
             mib.reserved=bits(23);
         end
+
         function data=ParsePbchPayload(bits,Lmax_)
+            % parses payload of PBCH
+            % returns structure with fields:
+            % *SFN
+            % *kSSB
+            % *mib (which is structure)
+            % *blockIndex, etc. 
             arguments
                 bits (1,32) {mustBeMember(bits,[0,1])}
-                Lmax_ (1,1) {mustBeInteger}
+                Lmax_ (1,1) {mustBeInteger}             % SSB per half-frame
             end
+
+            % data extraction 
             data.choiceBit=bits(1);
+            % MIB extraction
             data.mib=MibParser.ParseMib(bits(2:24));
+            
             data.SfnLsb=sum(2.^(3:-1:0).*bits(25:28));
             data.SFN=data.mib.SfnMsb+data.SfnLsb;
             data.halfFrame=bits(29);
